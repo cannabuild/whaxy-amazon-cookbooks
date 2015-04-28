@@ -1,5 +1,5 @@
 [program:<%= node['deploy'][@webapp_name][:environment][:dns_name] %>]
-command=/usr/bin/nodejs --harmony server.js
+command=/usr/bin/sails lift --prod --port 80
 process_name=<%= node['deploy'][@webapp_name][:environment][:dns_name] %>%(process_num)s
 numprocs=1
 directory=<%= node['deploy'][@webapp_name]['current_path'] %>
