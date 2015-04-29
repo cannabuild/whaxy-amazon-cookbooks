@@ -1,5 +1,6 @@
 [program:<%= node['deploy'][@webapp_name][:environment][:dns_name] %>]
-command=/usr/bin/sails lift --prod --port 80
+environment=NODE_ENV="production"
+command=/usr/bin/nodejs server
 process_name=<%= node['deploy'][@webapp_name][:environment][:dns_name] %>%(process_num)s
 numprocs=1
 directory=<%= node['deploy'][@webapp_name]['current_path'] %>
