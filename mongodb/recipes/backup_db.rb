@@ -1,4 +1,4 @@
-base_folder= "/home/ubuntu"
+base_folder= "/data/mongodb/dumps"
 time_now = Time.now.strftime("%Y-%m-%d_%H-%M")
 db_name = "#{node[:db_name]}"
 folder_name = "#{node[:file_prefix]}_db_backup-#{db_name}-#{time_now}"
