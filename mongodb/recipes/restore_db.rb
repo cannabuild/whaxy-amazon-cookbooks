@@ -1,5 +1,5 @@
 bucket_name = "#{node[:bucket_name]}"
-base_folder= "/data/mongodb/data/dumps"
+base_folder= "/data/mongodb/dumps"
 db_name = "#{node[:db_name]}"
 prefix = "#{node[:file_prefix]}_db_backup-#{db_name}"
 
