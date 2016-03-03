@@ -31,12 +31,12 @@ http {
 
     #gzip  on;
 
-    upstream silly_face_society_upstream {
-      server 127.0.0.1:9000;
+    upstream whaxy_web {
+      server 0.0.0.0:9000;
       keepalive 64;
     }
     server {
-        listen       8082;
+        listen 0.0.0.0:9090;
         server_name  order.lasvegasreleaf.com shop.harborside.com order.euphoriawellnessnv.com;
 
         #access_log  logs/host.access.log  main;
@@ -61,7 +61,7 @@ http {
           proxy_set_header   white-label-port $server_port;
           proxy_http_version 1.1;
           proxy_cache_key sfs$request_uri$scheme;
-          proxy_pass         http://silly_face_society_upstream;
+          proxy_pass         http://whaxy_web;
         }
 
         error_page   500 502 503 504  /50x.html;
