@@ -10,4 +10,8 @@ node[:deploy].each do |application, deploy|
     backup false
     variables(:webapp_name => application)
   end
+
+   execute "restart nginx" do
+    command "service nginx restart"
+  end
 end
