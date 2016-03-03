@@ -5,19 +5,21 @@ upstream whaxy_web {
 
 server {
     listen 0.0.0.0:9090;
-    server_name  order.lasvegasreleaf.com shop.harborside.com order.euphoriawellnessnv.com;
+    server_name _;
 
-    #access_log  logs/host.access.log  main;
-    set $rootwl whitelabel;
-    rewrite ^/$ /$rootwl/$host last;
-    rewrite ^/register(.*)$ /$rootwl/$host/register$1 last;
-    rewrite ^/faq(.*)$ /$rootwl/$host/faq$1 last;
-    rewrite ^/about(.*)$ /$rootwl/$host/about$1 last;
-    rewrite ^/menu/(.*)$ /$rootwl/$host/menu/$1 last;
-    rewrite ^/login(.*)$ /$rootwl/$host/login$1 last;
-    rewrite ^/cart(.*)$ /$rootwl/$host/cart$1 last;
+   set $rootwl whitelabel;
+   rewrite ^/$ /$rootwl/$host last;
+   rewrite ^/register(.*)$ /$rootwl/$host/register$1 last;
+   rewrite ^/faq(.*)$ /$rootwl/$host/faq$1 last;
+   rewrite ^/about(.*)$ /$rootwl/$host/about$1 last;
+   rewrite ^/menu/(.*)$ /$rootwl/$host/menu/$1 last;
+   rewrite ^/login(.*)$ /$rootwl/$host/login$1 last;
+   rewrite ^/cart(.*)$ /$rootwl/$host/cart$1 last;
+   rewrite ^/learn(.*)$ /$rootwl/$host/learn$1 last;
+   rewrite ^/news(.*)$ /$rootwl/$host/news$1 last;
+   rewrite ^/user(.*)$ /$rootwl/$host/user$1 last;
 
-    location / {
+   location / {
       proxy_redirect off;
       proxy_set_header   X-Real-IP            $remote_addr;
       proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
