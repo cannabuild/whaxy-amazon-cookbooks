@@ -2,7 +2,7 @@ include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
   template 'nginx site' do
-    path ::File.join('/etc/nginx/sites-enabled/', 'whaxy')
+    path ::File.join('/etc/nginx/sites-enabled/', 'default')
     source 'whitelabel-nginx.erb'
     owner 'root'
     group 'root'
