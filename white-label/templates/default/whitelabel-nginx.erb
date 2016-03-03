@@ -1,73 +1,39 @@
-#user  nobody;
-worker_processes  1;
-
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-
-#pid        logs/nginx.pid;
-
-
-events {
-    worker_connections  1024;
+upstream whaxy_web {
+    server 0.0.0.0:9000;
+    keepalive 64;
 }
 
+server {
+    listen 0.0.0.0:9090;
+    server_name  order.lasvegasreleaf.com shop.harborside.com order.euphoriawellnessnv.com;
 
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
+    #access_log  logs/host.access.log  main;
+    set $rootwl whitelabel;
+    rewrite ^/$ /$rootwl/$host last;
+    rewrite ^/register(.*)$ /$rootwl/$host/register$1 last;
+    rewrite ^/faq(.*)$ /$rootwl/$host/faq$1 last;
+    rewrite ^/about(.*)$ /$rootwl/$host/about$1 last;
+    rewrite ^/menu/(.*)$ /$rootwl/$host/menu/$1 last;
+    rewrite ^/login(.*)$ /$rootwl/$host/login$1 last;
+    rewrite ^/cart(.*)$ /$rootwl/$host/cart$1 last;
 
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
-    #access_log  logs/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
-
-    #gzip  on;
-
-    upstream whaxy_web {
-      server 0.0.0.0:9000;
-      keepalive 64;
+    location / {
+      proxy_redirect off;
+      proxy_set_header   X-Real-IP            $remote_addr;
+      proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto $scheme;
+      proxy_set_header   Host                   $http_host;
+      proxy_set_header   X-NginX-Proxy    true;
+      proxy_set_header   Connection "";
+      proxy_set_header   white-label      true;
+      proxy_set_header   white-label-port $server_port;
+      proxy_http_version 1.1;
+      proxy_cache_key sfs$request_uri$scheme;
+      proxy_pass         http://whaxy_web;
     }
-    server {
-        listen 0.0.0.0:9090;
-        server_name  order.lasvegasreleaf.com shop.harborside.com order.euphoriawellnessnv.com;
 
-        #access_log  logs/host.access.log  main;
-        set $rootwl whitelabel;
-        rewrite ^/$ /$rootwl/$host last;
-        rewrite ^/register(.*)$ /$rootwl/$host/register$1 last;
-        rewrite ^/faq(.*)$ /$rootwl/$host/faq$1 last;
-        rewrite ^/about(.*)$ /$rootwl/$host/about$1 last;
-        rewrite ^/menu/(.*)$ /$rootwl/$host/menu/$1 last;
-        rewrite ^/login(.*)$ /$rootwl/$host/login$1 last;
-        rewrite ^/cart(.*)$ /$rootwl/$host/cart$1 last;
-
-        location / {
-          proxy_redirect off;
-          proxy_set_header   X-Real-IP            $remote_addr;
-          proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-          proxy_set_header   X-Forwarded-Proto $scheme;
-          proxy_set_header   Host                   $http_host;
-          proxy_set_header   X-NginX-Proxy    true;
-          proxy_set_header   Connection "";
-          proxy_set_header   white-label      true;
-          proxy_set_header   white-label-port $server_port;
-          proxy_http_version 1.1;
-          proxy_cache_key sfs$request_uri$scheme;
-          proxy_pass         http://whaxy_web;
-        }
-
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
     }
-    include servers/*;
 }
