@@ -18,6 +18,7 @@ server {
    rewrite ^/learn(.*)$ /$rootwl/$host/learn$1 last;
    rewrite ^/news(.*)$ /$rootwl/$host/news$1 last;
    rewrite ^/user(.*)$ /$rootwl/$host/user$1 last;
+   rewrite ^/terms(.*)$ /$rootwl/$host/terms$1 last;
 
    location / {
       proxy_redirect off;
