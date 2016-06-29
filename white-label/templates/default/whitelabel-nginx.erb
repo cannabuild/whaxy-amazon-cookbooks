@@ -12,13 +12,14 @@ server {
    rewrite ^/register(.*)$ /$rootwl/$host/register$1 last;
    rewrite ^/faq(.*)$ /$rootwl/$host/faq$1 last;
    rewrite ^/about(.*)$ /$rootwl/$host/about$1 last;
-   rewrite ^/menu/(.*)$ /$rootwl/$host/menu/$1 last;
+   rewrite ^/menu(.*)$ /$rootwl/$host/menu$1 last;
    rewrite ^/login(.*)$ /$rootwl/$host/login$1 last;
    rewrite ^/cart(.*)$ /$rootwl/$host/cart$1 last;
-   rewrite ^/learn(.*)$ /$rootwl/$host/learn$1 last;
-   rewrite ^/news(.*)$ /$rootwl/$host/news$1 last;
    rewrite ^/user(.*)$ /$rootwl/$host/user$1 last;
    rewrite ^/terms(.*)$ /$rootwl/$host/terms$1 last;
+   rewrite ^/api(.*)$ /api$1 last;
+   rewrite ^(.*)\.(jpg|jpeg|gif|png|css|js|ico|xml|rss|txt|ttf|eot|svg|woff|woff2|map|json)$ $1.$2 last;
+   rewrite ^(.*)$ /$rootwl/$host/404 last;
 
    location / {
       proxy_redirect off;
