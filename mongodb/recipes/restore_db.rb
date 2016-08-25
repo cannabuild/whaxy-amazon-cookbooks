@@ -40,7 +40,7 @@ ruby_block "update_values" do
     bash_resource.code <<-EOH
       tar -xvf #{node[:archive_name]}
       mongo #{db_name} --eval "db.dropDatabase()"
-      mongorestore -d #{db_name} #{base_folder}/#{node[:folder_name]}/#{db_name}/
+      mongorestore -d #{db_name} #{base_folder}/#{node[:folder_name]}/#{db_name}/ --batchSize=100
 
       rm -rf #{node[:archive_name]} #{base_folder}/#{node[:folder_name]}
     EOH
