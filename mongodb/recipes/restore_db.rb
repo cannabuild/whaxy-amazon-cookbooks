@@ -39,7 +39,8 @@ ruby_block "update_values" do
     bash_resource = resources("bash[delete_old_db_and_restore_new]")
     bash_resource.code <<-EOH
       tar -xvf #{node[:archive_name]}
-      mongorestore -d #{db_name} #{base_folder}/#{node[:folder_name]}/#{db_name}/ --batchSize=25 --drop
+      mongo #{db_name} --eval "db.dropDatabase()"
+      mongorestore -d #{db_name} #{base_folder}/#{node[:folder_name]}/#{db_name}/
 
       rm -rf #{node[:archive_name]} #{base_folder}/#{node[:folder_name]}
     EOH
