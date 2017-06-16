@@ -1,4 +1,5 @@
 source 'https://supermarket.chef.io'
+cookbook 'nodejs', git:'https://github.com/redguide/nodejs.git'
 cookbook 'python'
 cookbook 'mongodb-10gen', '~> 0.4.1'
 cookbook 'apt'
