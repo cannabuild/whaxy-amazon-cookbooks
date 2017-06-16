@@ -1,7 +1,1 @@
 source 'https://supermarket.chef.io'
-cookbook 'python'
-cookbook 'mongodb-10gen', '~> 0.4.1'
-cookbook 'apt'
-cookbook 'mongodb3', '~> 5.3.0'
-cookbook 'ark'
-cookbook 'build-essential'
