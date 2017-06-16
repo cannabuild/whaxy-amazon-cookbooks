@@ -1,3 +1,4 @@
+name 'nodejs'
 depends 'build-essential', '= 3.2.0'
 depends 'ark', '>= 2.0.2'
 depends 'compat_resource'
